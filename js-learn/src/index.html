@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Przykład JS: Zegar i Dark Mode</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 2rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark {
+            background-color: #222;
+            color: #eee;
+        }
+        button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        #clock {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div id="clock">00:00:00</div>
+<button id="theme-toggle">Włącz tryb ciemny</button>
+
+<script>
+    // 1) Funkcja formatująca czas jako HH:MM:SS
+    function formatTime(date) {
+        const addZero = n => n < 10 ? '0' + n : n;
+        return `${addZero(date.getHours())}:${addZero(date.getMinutes())}:${addZero(date.getSeconds())}`;
+    }
+
+    // 2) Aktualizuj zawartość #clock co sekundę
+    const clockEl = document.getElementById('clock');
+    setInterval(() => {
+        clockEl.textContent = formatTime(new Date());
+    }, 1000);
+
+    // 3) Przełączanie motywu
+    const btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        if (document.body.classList.contains('dark')) {
+            btn.textContent = 'Wyłącz tryb ciemny';
+        } else {
+            btn.textContent = 'Włącz tryb ciemny';
+        }
+    });
+</script>
+</body>
+</html>
